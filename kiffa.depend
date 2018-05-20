@@ -1,4 +1,13 @@
 # depslib dependency file v1.0
-1446671344 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\main.cpp
+1526840109 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\main.cpp
 	<iostream>
+	<cctype>
+	<map>
+	<string>
+	<stdexcept>
+	<vector>
+	<stack>
+	<cstdlib>
+
+1526733308 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\kifejezes.h
 
