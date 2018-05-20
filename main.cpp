@@ -7,198 +7,61 @@
 #include <stack>
 #include <cstdlib>
 
+#include "Tokenizer.h"
+#include "Expression.h"
+#include "Constant.h"
+#include "Variable.h"
+#include "Operator.h"
+
 
 using namespace std;
 
-enum TokenType{
-    Const,
-    Operat,
-    Openp,
-    Closep,
-    Var
-};
-
-struct Token{
-    string value;
-    TokenType type;
-};
-
-
-class Tokenizer {
-public:
-    Tokenizer(const string &input):input_(input), current_(input_.begin())
-    {
-    }
-    bool getNext(Token &token);
-private:
-    string input_;
-    string::iterator current_;
-};
-
-
-
-bool Tokenizer::getNext(Token &token)
-{
-    token.value.clear();
-	if(current_ == input_.end()) return false;
-
-    if(*current_ =='(')
-    {
-    	token.type = Openp;
-        ++current_;
-    }
-    else if(*current_ == ')')
-    {
-    	token.type = Closep;
-        ++current_;
-    }
-    else if(*current_ == '+' || *current_ == '-' || *current_ == '*' || *current_ == '/')
-    {
-    	token.type = Operat;
-        token.value.push_back(*current_);
-        ++current_;
-    }
-    else if(isdigit(*current_))
-    {
-        token.type = Const;
-        while(current_ != input_.end() && isdigit(*current_))
-        {
-            token.value.push_back(*current_);
-            ++current_;		//iterátor léptetése
-        }
-    }
-    else if(isalpha(*current_))
-    {
-      token.type = Var;
-      while(current_ != input_.end() && isalpha(*current_))
-      {
-      	token.value.push_back(*current_);
-        ++current_;		//iterátor léptetése
-      }
-    }
-    return true;
-}
-
-class Expression{
-	public:
-		virtual double eval(const map<string, double> &variables) = 0;
-};
-
-class Constant: public Expression
-{
-public:
-		Constant(double value): value_(value){}
-
-    virtual double eval(const map<string, double> &variables);
-private:
-		double value_;
-};
-
-double Constant::eval(const map<string, double> &variables)
-{
-		return value_;
-}
-
-class Variable: public Expression
-{
-public:
-		Variable(const string & name): name_(name){}
-
-    virtual double eval(const map<string, double> &variables);
-private:
-		string name_;
-};
-
-double Variable::eval(const map<string, double> &variables)
-{
-		const map<string, double>::const_iterator i= variables.find(name_);
-		if(i == variables.end())
-    {
-    		throw runtime_error("Undefined variable: " + name_);
-    }
-    return i->second;
-}
-
-class Operator: public Expression
-{
-public:
-		Operator(const string & name,
-             Expression *left,
-             Expression *right): name_(name), left_(left), right_(right) {}
-
-    virtual double eval(const map<string, double> &variables);
-private:
-		string name_;
-    Expression *left_;
-    Expression *right_;
-};
-
-double Operator::eval(const map<string, double> &variables)
-{
-	if(name_ == "+")
-  {
-  		return left_->eval(variables) + right_->eval(variables);
-  }
-  else if(name_ == "-")
-  {
-  		return left_->eval(variables) - right_->eval(variables);
-  }
-  else if(name_ == "*")
-  {
-  		return left_->eval(variables) * right_->eval(variables);
-  }
-  else if(name_ == "/")
-  {
-  		return left_->eval(variables) / right_->eval(variables);
-  }
-}
-
 int precedence(const Token &t)
 {
-	if(t.value == "+" || t.value == "-") return 1;
-  if(t.value == "*" || t.value == "/") return 2;
+    if(t.value == "+" || t.value == "-") return 1;
+    if(t.value == "*" || t.value == "/") return 2;
 }
 
 vector<Token> postfixExpr(const string &input)
 {
-  Tokenizer tz(input);
-  Token t;
-  stack<Token> s;
-  vector<Token> result;
-  while(tz.getNext(t))
-  {
-  	if(t.type == Operat)
+    Tokenizer tz(input);
+    Token t;
+    stack<Token> s;
+    vector<Token> result;
+    while(tz.getNext(t))
     {
+        if(t.type == Operat)
+        {
 			while(not s.empty() && precedence(s.top()) >= precedence(t))
-      {
-      	result.push_back(s.top());
-        s.pop();
-      }
-      s.push(t);
+        {
+            result.push_back(s.top());
+            s.pop();
+        }
+        s.push(t);
+        }
+        else if(t.type == Openp)
+        {
+            s.push(t);
+        }
+        else if(t.type == Closep)
+        {
+            while(not s.empty() && s.top().type != Openp)
+            {
+                result.push_back(s.top());
+                s.pop();
+            }
+            s.pop();
+        }
+        else
+        {
+            result.push_back(t);
+        }
     }
-    else if(t.type == Openp)
-    {
-    	s.push(t);
-    }
-    else if(t.type == Closep)
-    {
-			while(not s.empty() && s.top().type != Openp)
-      {
-      	result.push_back(s.top());
-        s.pop();
-      }
-      s.pop();
-    }
-    else
-    {
-    	result.push_back(t);
-    }
-  }
 	while(not s.empty())
-  {
-   	result.push_back(s.top());
-    s.pop();
-  }
+    {
+        result.push_back(s.top());
+        s.pop();
+    }
   return result;
 }
 

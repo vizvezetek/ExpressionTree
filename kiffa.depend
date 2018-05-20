@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1526849705 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\main.cpp
+1526852281 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\main.cpp
 	<iostream>
 	<cctype>
 	<map>
@@ -8,6 +8,54 @@
 	<vector>
 	<stack>
 	<cstdlib>
+	"Tokenizer.h"
+	"Expression.h"
+	"Constant.h"
+	"Variable.h"
+	"Operator.h"
 
 1526733308 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\kifejezes.h
+
+1526851597 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\tokenizer.h
+	<iostream>
+	<cctype>
+	<map>
+	<string>
+
+1526852513 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\expression.h
+	"Tokenizer.h"
+
+1526851175 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\expression.cpp
+	"Expression.h"
+
+1526850715 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\tokenizer.cpp
+	"Tokenizer.h"
+
+1526851745 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\constant.h
+	<iostream>
+	<string>
+	<map>
+	"Expression.h"
+
+1526851367 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\constant.cpp
+	"Constant.h"
+
+1526851833 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\variable.h
+	<iostream>
+	<string>
+	<map>
+	"Expression.h"
+
+1526851797 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\variable.cpp
+	<stdexcept>
+	"Variable.h"
+
+1526852110 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\operator.cpp
+	"Operator.h"
+
+1526852110 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\operator.h
+	<iostream>
+	<string>
+	<map>
+	"Expression.h"
 
