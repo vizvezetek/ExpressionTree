@@ -3,6 +3,8 @@
 #include <map>
 #include <string>
 #include <stdexcept>
+#include <vector>
+#include <stack>
 
 
 using namespace std;
@@ -83,10 +85,11 @@ class Expression{
 
 class Constant: public Expression
 {
-    public:
+public:
 		Constant(double value): value_(value){}
-        virtual double eval(const map<string, double> &variables);
-    private:
+
+    virtual double eval(const map<string, double> &variables);
+private:
 		double value_;
 };
 
@@ -97,68 +100,116 @@ double Constant::eval(const map<string, double> &variables)
 
 class Variable: public Expression
 {
-    public:
-        Variable(const string & name): name_(name){}
+public:
+		Variable(const string & name): name_(name){}
 
-        virtual double eval(const map<string, double> &variables);
-    private:
-            string name_;
+    virtual double eval(const map<string, double> &variables);
+private:
+		string name_;
 };
 
 double Variable::eval(const map<string, double> &variables)
 {
-    const map<string, double>::const_iterator i= variables.find(name_);
-    if(i == variables.end())
+		const map<string, double>::const_iterator i= variables.find(name_);
+		if(i == variables.end())
     {
-        throw runtime_error("Undefined variable: " + name_);
+    		throw runtime_error("Undefined variable: " + name_);
     }
     return i->second;
 }
 
 class Operator: public Expression
 {
-    public:
+public:
 		Operator(const string & name,
              Expression *left,
              Expression *right): name_(name), left_(left), right_(right) {}
 
-        virtual double eval(const map<string, double> &variables);
-    private:
-		string name_;
+    virtual double eval(const map<string, double> &variables);
+private:
+	string name_;
     Expression *left_;
     Expression *right_;
 };
 
 double Operator::eval(const map<string, double> &variables)
 {
-  if(name_ == "+")
-  {
-  		return left_->eval(variables) + right_->eval(variables);
-  }
-  else if(name_ == "-")
-  {
+    if(name_ == "+")
+    {
+        return left_->eval(variables) + right_->eval(variables);
+    }
+    else if(name_ == "-")
+    {
   		return left_->eval(variables) - right_->eval(variables);
-  }
-  else if(name_ == "*")
-  {
-  		return left_->eval(variables) * right_->eval(variables);
-  }
-  else if(name_ == "/")
-  {
+    }
+    else if(name_ == "*")
+    {
+        return left_->eval(variables) * right_->eval(variables);
+    }
+    else if(name_ == "/")
+    {
   		return left_->eval(variables) / right_->eval(variables);
-  }
+    }
 }
 
+int precedence(const Token &t)
+{
+	if(t.value == "+" || t.value == "-") return 1;
+    if(t.value == "*" || t.value == "/") return 2;
+}
+
+vector<Token> postfixExpr(const string &input)
+{
+      Tokenizer tz(input);
+      Token t;
+      stack<Token> s;
+      vector<Token> result;
+      while(tz.getNext(t))
+      {
+        if(t.type == Operat)
+        {
+          while(not s.empty() && precedence(s.top()) >= precedence(t))
+          {
+            result.push_back(s.top());
+            s.pop();
+          }
+          s.push(t);
+        }
+        else if(t.type == Openp)
+        {
+            s.push(t);
+        }
+        else if(t.type == Closep)
+        {
+          while(not s.empty() && s.top().type != Openp)
+          {
+            result.push_back(s.top());
+            s.pop();
+          }
+          s.pop();
+        }
+        else
+        {
+            result.push_back(t);
+        }
+      }
+      while(not s.empty())
+      {
+        result.push_back(s.top());
+        s.pop();
+      }
+      return result;
+}
 
 int main()
 {
 
-	Tokenizer tz("(2+3)");
-    Token t;
-    while(tz.getNext(t))
+    vector<Token> postfix = postfixExpr("2+3*4+5");
+    for(vector<Token>::iterator i = postfix.begin(); i != postfix.end(); ++i)
     {
-        cout << t.value<< endl;
+        cout << i->value << endl;
     }
+
 
     Constant *c = new Constant(2.0);
     Variable *v = new Variable("x");
@@ -170,6 +221,6 @@ int main()
     cout << root->eval(variables) << endl;
 
 
-    cout << "asdasd" << endl;
+		cout << "asdasd" << endl;
     return 0;
 }
