@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <vector>
 #include <stack>
+#include <cstdlib>
 
 
 using namespace std;
@@ -127,93 +128,111 @@ public:
 
     virtual double eval(const map<string, double> &variables);
 private:
-	string name_;
+		string name_;
     Expression *left_;
     Expression *right_;
 };
 
 double Operator::eval(const map<string, double> &variables)
 {
-    if(name_ == "+")
-    {
-        return left_->eval(variables) + right_->eval(variables);
-    }
-    else if(name_ == "-")
-    {
+	if(name_ == "+")
+  {
+  		return left_->eval(variables) + right_->eval(variables);
+  }
+  else if(name_ == "-")
+  {
   		return left_->eval(variables) - right_->eval(variables);
-    }
-    else if(name_ == "*")
-    {
-        return left_->eval(variables) * right_->eval(variables);
-    }
-    else if(name_ == "/")
-    {
+  }
+  else if(name_ == "*")
+  {
+  		return left_->eval(variables) * right_->eval(variables);
+  }
+  else if(name_ == "/")
+  {
   		return left_->eval(variables) / right_->eval(variables);
-    }
+  }
 }
 
 int precedence(const Token &t)
 {
 	if(t.value == "+" || t.value == "-") return 1;
-    if(t.value == "*" || t.value == "/") return 2;
+  if(t.value == "*" || t.value == "/") return 2;
 }
 
 vector<Token> postfixExpr(const string &input)
 {
-      Tokenizer tz(input);
-      Token t;
-      stack<Token> s;
-      vector<Token> result;
-      while(tz.getNext(t))
+  Tokenizer tz(input);
+  Token t;
+  stack<Token> s;
+  vector<Token> result;
+  while(tz.getNext(t))
+  {
+  	if(t.type == Operat)
+    {
+			while(not s.empty() && precedence(s.top()) >= precedence(t))
       {
-        if(t.type == Operat)
-        {
-          while(not s.empty() && precedence(s.top()) >= precedence(t))
-          {
-            result.push_back(s.top());
-            s.pop();
-          }
-          s.push(t);
-        }
-        else if(t.type == Openp)
-        {
-            s.push(t);
-        }
-        else if(t.type == Closep)
-        {
-          while(not s.empty() && s.top().type != Openp)
-          {
-            result.push_back(s.top());
-            s.pop();
-          }
-          s.pop();
-        }
-        else
-        {
-            result.push_back(t);
-        }
-      }
-      while(not s.empty())
-      {
-        result.push_back(s.top());
+      	result.push_back(s.top());
         s.pop();
       }
-      return result;
+      s.push(t);
+    }
+    else if(t.type == Openp)
+    {
+    	s.push(t);
+    }
+    else if(t.type == Closep)
+    {
+			while(not s.empty() && s.top().type != Openp)
+      {
+      	result.push_back(s.top());
+        s.pop();
+      }
+      s.pop();
+    }
+    else
+    {
+    	result.push_back(t);
+    }
+  }
+	while(not s.empty())
+  {
+   	result.push_back(s.top());
+    s.pop();
+  }
+  return result;
 }
 
 int main()
 {
 
-    vector<Token> postfix = postfixExpr("2+3*4+5");
-    for(vector<Token>::iterator i = postfix.begin(); i != postfix.end(); ++i)
+	vector<Token> postfix = postfixExpr("2+3*4+5");
+  for(vector<Token>::iterator i = postfix.begin(); i != postfix.end(); ++i)
+  {
+  	cout << i->value << endl;
+  }
+
+	stack<Expression*> s;
+
+  for(vector<Token>::iterator i = postfix.begin(); i != postfix.end(); ++i)
+  {
+  	if(i->type == Operat)
     {
-        cout << i->value << endl;
+      Expression *right = s.top();
+      s.pop();
+      Expression *left = s.top();
+      s.pop();
+      s.push(new Operator(i->value, left, right));
     }
-
-
-    Constant *c = new Constant(2.0);
-    Variable *v = new Variable("x");
-    Expression *root = new Operator("+", c, v);
+    else if(i->type == Const)
+    {
+    	s.push(new Constant(strtod(i->value.c_str(), NULL)));
+    }
+    else if(i->type == Var)
+    {
+    	s.push(new Variable(i->value));
+    }
+  }
+   Expression *root = s.top();
 
     map<string, double> variables;
     variables["x"] = 3.0;
@@ -221,6 +240,5 @@ int main()
     cout << root->eval(variables) << endl;
 
 
-		cout << "asdasd" << endl;
     return 0;
 }
