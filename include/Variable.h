@@ -12,9 +12,10 @@ using namespace std;
 class Variable: public Expression
 {
 public:
-		Variable(const string & name);
+    Variable(const string & name);
 
     virtual double eval(const map<string, double> &variables);
+    virtual string to_string();
 private:
 		string name_;
 };

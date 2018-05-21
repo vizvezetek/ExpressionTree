@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,7 +34,17 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/Constant.h" />
+		<Unit filename="include/Expression.h" />
+		<Unit filename="include/Operator.h" />
+		<Unit filename="include/Tokenizer.h" />
+		<Unit filename="include/Variable.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Constant.cpp" />
+		<Unit filename="src/Expression.cpp" />
+		<Unit filename="src/Operator.cpp" />
+		<Unit filename="src/Tokenizer.cpp" />
+		<Unit filename="src/Variable.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

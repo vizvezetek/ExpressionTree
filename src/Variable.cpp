@@ -1,5 +1,5 @@
 #include <stdexcept>
-
+#include <sstream>
 #include "Variable.h"
 
 Variable::Variable(const string & name): name_(name){}
@@ -12,4 +12,9 @@ double Variable::eval(const map<string, double> &variables)
     		throw runtime_error("Undefined variable: " + name_);
     }
     return i->second;
+}
+
+string Variable::to_string()
+{
+    return name_;
 }

@@ -31,7 +31,7 @@ bool Tokenizer::getNext(Token &token)
         while(current_ != input_.end() && isdigit(*current_))
         {
             token.value.push_back(*current_);
-            ++current_;		//iterátor léptetése
+            ++current_;
         }
     }
     else if(isalpha(*current_))
@@ -40,7 +40,7 @@ bool Tokenizer::getNext(Token &token)
       while(current_ != input_.end() && isalpha(*current_))
       {
       	token.value.push_back(*current_);
-        ++current_;		//iterátor léptetése
+        ++current_;
       }
     }
     return true;

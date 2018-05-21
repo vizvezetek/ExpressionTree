@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1526852281 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\main.cpp
+1526928698 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\main.cpp
 	<iostream>
 	<cctype>
 	<map>
@@ -22,38 +22,41 @@
 	<map>
 	<string>
 
-1526852513 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\expression.h
+1526928986 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\expression.h
 	"Tokenizer.h"
 
 1526851175 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\expression.cpp
 	"Expression.h"
 
-1526850715 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\tokenizer.cpp
+1526911562 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\tokenizer.cpp
 	"Tokenizer.h"
 
-1526851745 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\constant.h
+1526928698 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\constant.h
 	<iostream>
 	<string>
 	<map>
 	"Expression.h"
 
-1526851367 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\constant.cpp
+1526928816 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\constant.cpp
 	"Constant.h"
+	<sstream>
 
-1526851833 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\variable.h
+1526928698 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\variable.h
 	<iostream>
 	<string>
 	<map>
 	"Expression.h"
 
-1526851797 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\variable.cpp
+1526928959 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\variable.cpp
 	<stdexcept>
+	<sstream>
 	"Variable.h"
 
-1526852110 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\operator.cpp
+1526928906 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\operator.cpp
 	"Operator.h"
+	<sstream>
 
-1526852110 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\operator.h
+1526928698 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\operator.h
 	<iostream>
 	<string>
 	<map>

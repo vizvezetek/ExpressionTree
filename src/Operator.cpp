@@ -1,4 +1,5 @@
 #include "Operator.h"
+#include <sstream>
 
 Operator::Operator(const string & name,
                     Expression *left,
@@ -22,4 +23,12 @@ double Operator::eval(const map<string, double> &variables)
     {
   		return left_->eval(variables) / right_->eval(variables);
     }
+}
+
+
+string Operator::to_string()
+{
+    stringstream s;
+    s<<left_->to_string() << name_ << right_->to_string();
+    return s.str();
 }
