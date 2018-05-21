@@ -16,6 +16,7 @@ public:
 
     virtual double eval(const map<string, double> &variables);
     virtual string to_string();
+    virtual int precedence();
 private:
 		string name_;
 };

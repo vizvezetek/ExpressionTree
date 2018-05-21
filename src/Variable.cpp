@@ -14,6 +14,11 @@ double Variable::eval(const map<string, double> &variables)
     return i->second;
 }
 
+int Variable::precedence()
+{
+    return 55;
+}
+
 string Variable::to_string()
 {
     return name_;

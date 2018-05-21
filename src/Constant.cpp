@@ -9,6 +9,11 @@ double Constant::eval(const map<string, double> &variables)
     return value_;
 }
 
+int Constant::precedence()
+{
+    return 55;
+}
+
 string Constant::to_string()
 {
     stringstream s;

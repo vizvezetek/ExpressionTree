@@ -22,7 +22,7 @@
 	<map>
 	<string>
 
-1526928986 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\expression.h
+1526930074 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\expression.h
 	"Tokenizer.h"
 
 1526851175 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\expression.cpp
@@ -31,17 +31,17 @@
 1526911562 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\tokenizer.cpp
 	"Tokenizer.h"
 
-1526928698 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\constant.h
+1526929998 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\constant.h
 	<iostream>
 	<string>
 	<map>
 	"Expression.h"
 
-1526928816 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\constant.cpp
+1526929998 source:c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\src\constant.cpp
 	"Constant.h"
 	<sstream>
 
-1526928698 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\variable.h
+1526929998 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\variable.h
 	<iostream>
 	<string>
 	<map>
@@ -56,7 +56,7 @@
 	"Operator.h"
 	<sstream>
 
-1526928698 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\operator.h
+1526929998 c:\users\koncz\onedrive\documents\jegyzetek, elõadások\programozás c++ nyelven\bead\kiffa\include\operator.h
 	<iostream>
 	<string>
 	<map>
