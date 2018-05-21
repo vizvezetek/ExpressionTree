@@ -1,5 +1,6 @@
 #include "Operator.h"
 #include <sstream>
+#include <cmath>
 
 Operator::Operator(const string & name,
                     Expression *left,
@@ -23,12 +24,18 @@ double Operator::eval(const map<string, double> &variables)
     {
   		return left_->eval(variables) / right_->eval(variables);
     }
+    else if(name_ == "^")
+    {
+  		return pow(left_->eval(variables), right_->eval(variables));
+    }
+
 }
 
 int Operator::precedence()
 {
     if(name_ == "+" || name_ == "-") return 1;
     if(name_ == "*" || name_ == "/") return 2;
+    if(name_ == "^") return 3;
 }
 
 string Operator::to_string()

@@ -20,6 +20,7 @@ int precedence(const Token &t)
 {
     if(t.value == "+" || t.value == "-") return 1;
     if(t.value == "*" || t.value == "/") return 2;
+    if(t.value == "^" ) return 3;
 }
 
 vector<Token> postfixExpr(const string &input)
@@ -67,7 +68,7 @@ vector<Token> postfixExpr(const string &input)
 
 int main()
 {
-    vector<Token> postfix = postfixExpr("(2+3)*4+5");
+    vector<Token> postfix = postfixExpr("x^3+(2+3)*4+5");
 
 //    for(vector<Token>::iterator i = postfix.begin(); i != postfix.end(); ++i)
 //    {

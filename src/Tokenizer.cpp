@@ -19,7 +19,7 @@ bool Tokenizer::getNext(Token &token)
     	token.type = Closep;
         ++current_;
     }
-    else if(*current_ == '+' || *current_ == '-' || *current_ == '*' || *current_ == '/')
+    else if(*current_ == '+' || *current_ == '-' || *current_ == '*' || *current_ == '/' || *current_ == '^')
     {
     	token.type = Operat;
         token.value.push_back(*current_);
