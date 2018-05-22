@@ -68,7 +68,55 @@ vector<Token> postfixExpr(const string &input)
 
 int main()
 {
-    vector<Token> postfix = postfixExpr("x^3+(2+3)*4+5");
+    string inp;
+    string inp2;
+    bool ok=false;
+
+    do
+    {
+        cout << "Adj meg egy meg kifejezest!"<< endl ;
+        cin >> inp;
+        if(inp.length()==0) ok=false;
+        else ok = true;
+        vector<Token> postfix = postfixExpr(inp);
+
+        stack<Expression*> s;
+
+        for(vector<Token>::iterator i = postfix.begin(); i != postfix.end(); ++i)
+        {
+            if(i->type == Operat)
+            {
+            Expression *right = s.top();
+            s.pop();
+            Expression *left = s.top();
+            s.pop();
+            s.push(new Operator(i->value, left, right));
+            }
+            else if(i->type == Const)
+            {
+                s.push(new Constant(strtod(i->value.c_str(), NULL)));
+            }
+            else if(i->type == Var)
+            {
+                s.push(new Variable(i->value));
+            }
+        }
+        Expression *root = s.top();
+        map<string, double> variables;
+    //    variables["x"] = 12345.0;
+
+        cout << root->to_string() << '=' << root->eval(variables) << endl << endl;
+
+        cout << "Szeretnel tovabbi kifejezest megadni? (y/n)"<< endl ;
+        cin >> inp2;
+        if(inp2.compare("y")!=0){
+            return 0;
+        }
+
+    }
+    while (ok);
+
+//    vector<Token> postfix = postfixExpr("2^3+(2+3)*4+5");
 
 //    for(vector<Token>::iterator i = postfix.begin(); i != postfix.end(); ++i)
 //    {
@@ -83,33 +131,7 @@ int main()
 //    }
     //-----------------
 
-	stack<Expression*> s;
 
-    for(vector<Token>::iterator i = postfix.begin(); i != postfix.end(); ++i)
-    {
-        if(i->type == Operat)
-        {
-        Expression *right = s.top();
-        s.pop();
-        Expression *left = s.top();
-        s.pop();
-        s.push(new Operator(i->value, left, right));
-        }
-        else if(i->type == Const)
-        {
-            s.push(new Constant(strtod(i->value.c_str(), NULL)));
-        }
-        else if(i->type == Var)
-        {
-            s.push(new Variable(i->value));
-        }
-    }
-    Expression *root = s.top();
-
-    map<string, double> variables;
-//    variables["x"] = 12345.0;
-
-    cout << root->to_string() << '=' << root->eval(variables) << endl;
 
     return 0;
 }
