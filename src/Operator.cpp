@@ -63,3 +63,9 @@ string Operator::to_string()
 
     return s.str();
 }
+
+Operator::~Operator()
+{
+    delete left_;
+    delete right_;
+}

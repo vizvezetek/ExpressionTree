@@ -63,63 +63,87 @@ vector<Token> postfixExpr(const string &input)
         result.push_back(s.top());
         s.pop();
     }
-  return result;
+    return result;
 }
 
-void inputpostfixevaluator(string inp){
+void inputpostfixevaluator(string inp, const map<string, double> &variables){
+
     vector<Token> postfix = postfixExpr(inp);
+    stack<Expression*> s;
 
-        stack<Expression*> s;
-
-        for(vector<Token>::iterator i = postfix.begin(); i != postfix.end(); ++i)
+    for(vector<Token>::iterator i = postfix.begin(); i != postfix.end(); ++i)
+    {
+        if(i->type == Operat)
         {
-            if(i->type == Operat)
-            {
-            Expression *right = s.top();
-            s.pop();
-            Expression *left = s.top();
-            s.pop();
-            s.push(new Operator(i->value, left, right));
-            }
-            else if(i->type == Const)
-            {
-                s.push(new Constant(strtod(i->value.c_str(), NULL)));
-            }
-            else if(i->type == Var)
-            {
-                s.push(new Variable(i->value));
-            }
+        Expression *right = s.top();
+        s.pop();
+        Expression *left = s.top();
+        s.pop();
+        s.push(new Operator(i->value, left, right));
         }
-        Expression *root = s.top();
-        map<string, double> variables;
-    //    variables["x"] = 12345.0;
+        else if(i->type == Const)
+        {
+            s.push(new Constant(strtod(i->value.c_str(), NULL)));
+        }
+        else if(i->type == Var)
+        {
+            s.push(new Variable(i->value));
+        }
+    }
+    Expression *root = s.top();
 
-        cout << root->to_string() << '=' << root->eval(variables) << endl << endl;
+    //    variables["x"] = 12345.0;
+    cout << root->to_string() << '=' << root->eval(variables) << endl << endl;
+    delete root;
+}
+
+void inpVariable(map<string, double> &variables)
+{
+    string inpvar;
+    string value;
+
+    cout << "Adj meg egy valtozot."<< endl;
+    getline (cin,inpvar);
+
+    while(not
+          inpvar.empty())
+    {
+        cout << "Adj meg a valtozo ereteket."<< endl;
+        getline (cin,value);
+        variables[inpvar]=strtod(value.c_str(), NULL);
+
+        cout << "Adj meg egy valtozot."<< endl;
+        getline (cin,inpvar);
+    }
+
 }
 
 int main()
 {
     string inp;
     string inp2;
-    bool ok=false;
+    map<string, double> variables;
 
-    do
+    inpVariable(variables);
+
+    while(true)
     {
         cout << "Adj meg egy meg kifejezest!"<< endl ;
-        cin >> inp;
-        if(inp.length()==0) ok=false;
-        else ok = true;
+        //cin >> inp;
 
-        inputpostfixevaluator(inp);
+        getline (cin,inp);
+        if(inp.empty()){break;}
+        inputpostfixevaluator(inp, variables);
 
         cout << "Szeretnel tovabbi kifejezest megadni? (y/n)"<< endl ;
-        cin >> inp2;
+        //cin >> inp2;
+        getline (cin,inp2);
+
         if(inp2.compare("y")!=0){
             return 0;
         }
 
     }
-    while (ok);
 
 //    vector<Token> postfix = postfixExpr("2^3+(2+3)*4+5");
 

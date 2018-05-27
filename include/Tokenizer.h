@@ -29,6 +29,7 @@ class Tokenizer
     private:
         string input_;
         string::iterator current_;
+        void skipWhitespace();
 };
 
 #endif // TOKENIZER_H

@@ -1,7 +1,17 @@
 #include "Tokenizer.h"
 
+void Tokenizer::skipWhitespace()
+{
+    while(current_ != input_.end() && isspace(*current_))
+    {
+        ++current_;
+    }
+
+}
+
 Tokenizer::Tokenizer(const string &input):input_(input), current_(input_.begin())
 {
+    skipWhitespace();
 }
 
 bool Tokenizer::getNext(Token &token)
@@ -43,5 +53,6 @@ bool Tokenizer::getNext(Token &token)
         ++current_;
       }
     }
+    skipWhitespace();
     return true;
 }

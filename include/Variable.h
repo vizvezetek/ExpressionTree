@@ -18,7 +18,7 @@ public:
     virtual string to_string();
     virtual int precedence();
 private:
-		string name_;
+    string name_;
 };
 
 
