@@ -66,19 +66,8 @@ vector<Token> postfixExpr(const string &input)
   return result;
 }
 
-int main()
-{
-    string inp;
-    string inp2;
-    bool ok=false;
-
-    do
-    {
-        cout << "Adj meg egy meg kifejezest!"<< endl ;
-        cin >> inp;
-        if(inp.length()==0) ok=false;
-        else ok = true;
-        vector<Token> postfix = postfixExpr(inp);
+void inputpostfixevaluator(string inp){
+    vector<Token> postfix = postfixExpr(inp);
 
         stack<Expression*> s;
 
@@ -106,6 +95,22 @@ int main()
     //    variables["x"] = 12345.0;
 
         cout << root->to_string() << '=' << root->eval(variables) << endl << endl;
+}
+
+int main()
+{
+    string inp;
+    string inp2;
+    bool ok=false;
+
+    do
+    {
+        cout << "Adj meg egy meg kifejezest!"<< endl ;
+        cin >> inp;
+        if(inp.length()==0) ok=false;
+        else ok = true;
+
+        inputpostfixevaluator(inp);
 
         cout << "Szeretnel tovabbi kifejezest megadni? (y/n)"<< endl ;
         cin >> inp2;
