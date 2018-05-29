@@ -105,8 +105,7 @@ void inpVariable(map<string, double> &variables)
     cout << "Adj meg egy valtozot."<< endl;
     getline (cin,inpvar);
 
-    while(not
-          inpvar.empty())
+    while(not inpvar.empty())
     {
         cout << "Adj meg a valtozo ereteket."<< endl;
         getline (cin,value);
@@ -118,6 +117,21 @@ void inpVariable(map<string, double> &variables)
 
 }
 
+void printVariables(map<string, double> &variables)
+{
+    system("cls");          //WINDOWS
+    //system("clear");      //LINUX
+
+    cout <<"------------------------------------------"<< endl;
+    cout <<"A felhasznalhato valtozok a kovetkezok:"<< endl;
+    for (map<string, double>::iterator it=variables.begin(); it!=variables.end(); ++it)
+    {
+            cout << it->first << " = " << it->second << endl;
+    }
+    cout <<"------------------------------------------"<< endl;
+    cout << endl;
+}
+
 int main()
 {
     string inp;
@@ -125,6 +139,7 @@ int main()
     map<string, double> variables;
 
     inpVariable(variables);
+    printVariables(variables);
 
     while(true)
     {
